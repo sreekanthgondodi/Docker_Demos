@@ -1,0 +1,41 @@
+# **********************************************  Scenario: Write a Docker File  ************************************************************ 
+
+# As per recent requirements shared by the Nautilus application development team, they need custom images created for one of their projects. 
+# Several of the initial testing requirements are already been shared with DevOps team. 
+ Therefore, create a docker file /opt/docker/Dockerfile (please keep D capital of Dockerfile) on App server 1 in Stratos DC and configure to build an image with the following requirements:
+
+# a. Use ubuntu as the base image.
+
+# b. Install apache2 and configure it to work on 6000 port. (do not update any other Apache configuration settings like document root etc).
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
+# 1. connect to app server and create docker file
+
+#vi /opt/docker/Dockerfile
+
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+
+RUN apt-get install apache2 -y
+
+RUN sed -i "s/80/6000/g" /etc/apache2/ports.conf
+
+EXPOSE 6000
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND", "-k", "start"]
+
+#2. build docker image
+
+docker build -t my_image .
+
+#3. Run the docker file
+
+docker run --name my_serv -p 6000:6000 -d my_image
+
+#4. Test the application
+
+curl http://localhost:6000
