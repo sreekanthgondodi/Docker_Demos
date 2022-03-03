@@ -1,0 +1,30 @@
+# ************************************************** Scenario: Docker Volumes Mapping *************************************************************
+
+The Nautilus DevOps team is testing applications containerization, which issupposed to be migrated on docker container-based environments soon. In today's stand-up meeting one of the team members has been assigned a task to create and test a docker container with certain requirements. Below are more details:
+
+
+a. On App Server 2 in Stratos DC pull ubuntu image (preferably latest tag but others should work too).
+
+b. Create a new container with name official from the image you just pulled.
+
+c. Map the host volume /opt/data with container volume /usr/src/. There is an sample.txt file present on same server under /tmp; copy that file to /opt/data. Also please keep the container in running state.
+-------------------------------------------------------------------------------------------------------------------------------
+Solution:
+
+1. Login App2a server
+2. Pull the ubuntu image
+sudo docker pull ubuntu:latest 
+
+3. Run a docker container with the name specified in the question using the image you just pulled. Since, you need to keep the container running, you need to use the option -it. Also make sure you are mapping the correct local directory to the directory path in the container (In this example, /opt/sysops is mapped to /usr/src on the container): 
+sudo docker run --name apps -v /opt/data:/usr/src/ -d -it ubuntu:latest
+
+4.Make sure container is running: 
+sudo docker ps
+
+5.Finally, copy the file mentioned in the question to the local directory you mapped to the container: 
+cp /tmp/sample.txt /opt/sysops/
+
+6.Verification
+Check that the file you copied in the last step can be seen in the container: 
+sudo docker -it apps ls /usr/src
+
