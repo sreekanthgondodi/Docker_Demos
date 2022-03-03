@@ -1,0 +1,24 @@
+#  *********************************************** Scenario: Run a Docker Container ***********************************************************
+
+Nautilus DevOps team is testing some applications deployment on some of the application servers. They need to deploy a nginx container on Application Server 3. Please complete the task as per details given below:
+
+On Application Server 3 create a container named nginx_3 using image nginx with alpine tag and make sure container is in running state.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Solution:
+
+1. At first login on app server as per the task &  switch to root user
+
+2. Run the Below command to check the existing docker  Images & container  running 
+docker ps
+docker images
+
+3. According to the task pull the image and name the container make sure it's in running  
+docker run -d --name nginx_3 -p 8080:80 nginx:alpine
+
+4. Confirm the docker container is in running status 
+docker ps
+
+5. Validate the task by Curl
+curl http://localhost:8080
+
