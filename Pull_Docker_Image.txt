@@ -1,0 +1,27 @@
+# ***************************************************** Scenario: Pull Docker Image ***********************************************************
+
+Nautilus project developers are planning to start testing on a new project. As per their meeting with the DevOps team, they want to test containerized environment application features. As per details shared with DevOps team, we need to accomplish the following task:
+
+a. Pull busybox:musl image on App Server 1 in Stratos DC and re-tag (create new tag) this image as busybox:blog
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+Solution:
+
+1. Login App server1 with root access
+
+2. Check the existing docker images and pull the docker image as per the question
+
+docker images
+
+docker pull busybox:musl
+
+3. Rename the docker image
+
+docker tag busybox:musl busybox:blog
+
+Verification:
+check docker images
+docker images
+
+
+
